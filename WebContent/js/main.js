@@ -1,0 +1,61 @@
+$(function(){
+				/* 传递的数据为一个数组，以json的形式进行传值  */
+				var treeData=[{
+					text:"人力资源管理系统",
+					children:[{
+						text:"部门管理",
+						attributes:{
+							url:"DepartmentManage.jsp"
+						}
+					},{
+						text:"员工管理",
+						attributes:{
+							url:"EmployeeManage.jsp"
+						}
+					},{
+						text:"薪酬管理",
+						attributes:{
+							url:"PayManage.jsp"
+						}
+					},{
+						text:"培训管理",
+						attributes:{
+							url:"TrainingManage.jsp"
+						}
+					},{
+						text:"考勤管理",
+						attributes:{
+							url:"AttendanceManage.jsp"
+						}
+					},{
+						text:"招聘管理",
+						attributes:{
+							url:"RecruitmentManage.jsp"
+						}
+					}]
+				}];
+				//实例化树型
+				$("#tree").tree({
+					data:treeData,
+					lines:true, //显示tree树形结构中的虚线
+					onClick:function(node){
+						if(node.attributes){
+							openTab(node.text,node.attributes.url);
+						}
+					}
+				})
+				//新增tab
+				function openTab(text,url){
+					if($("#tabs").tabs('exists',text)){
+						$("#tabs").tabs('select',text);
+					}else{
+						//页面跳转链接
+						var content="<iframe frameborder='0' scrolling='auto' style='width:100%;height:100%;' src="+url+"></iframe>";
+						$("#tabs").tabs('add',{
+							title:text,
+							closable:true,
+							content:content			
+						});				
+					}
+				}
+			});
